@@ -261,6 +261,7 @@
       <object>objects\obj_gui_clock_kazaljka_sati</object>
     </objects>
     <objects name="JSON">
+      <object>objects\obj_button_open_json</object>
       <object>objects\Story_CTRL_JSON</object>
       <object>objects\obj_json_story_element</object>
       <object>objects\obj_cinematic_text_box</object>

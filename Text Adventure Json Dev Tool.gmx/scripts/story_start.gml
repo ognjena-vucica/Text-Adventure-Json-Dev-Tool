@@ -4,7 +4,10 @@ var dialog_data_address = argument0;
 /*if (file_exists(dialog_data_address)){
     show_message("wow, it exists");
 }*/
-Game_CTRL.story_dialog_data = ds_map_find_value(load_object_from_json_file(dialog_data_address),"default");//dialog_data;
+//Game_CTRL.story_dialog_data = ds_map_find_value(load_object_from_json_file(dialog_data_address),"default");//dialog_data;
+Game_CTRL.story_dialog_data = ds_map_find_value(load_object_from_json_file(get_open_filename(".json", "a story file")),"default");
 Game_CTRL.previous_room = room;
 
 room_goto(rm_json_tree);
+
+
