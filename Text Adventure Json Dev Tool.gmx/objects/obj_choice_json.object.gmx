@@ -83,9 +83,17 @@ show_message_custom_debug("choice_index" + string(choice_index));*/
             <kind>1</kind>
             <string>draw_self();
 //draw_text_outline(x,y, choice_text, c_white, c_black, fa_left, fa_top, fnt_arial_14);
+
+//draw choice_text
+draw_set_font(fnt_arial_12);
 draw_set_halign(fa_left);
 draw_set_valign(fa_middle);
 draw_text_ext(x+20,(bbox_bottom+bbox_top)/2, choice_text, -1, bbox_right-bbox_left-40);
+
+//draw jump_to_index
+draw_set_font(fnt_arial_20);
+draw_set_halign(fa_right);
+draw_text(x-15,(bbox_bottom+bbox_top)/2, jump_to_index);
 
 draw_line(bbox_left,bbox_top,father.x,father.text_box.bbox_bottom)//father.bbox_left,father.bbox_bottom);
 </string>

@@ -64,6 +64,7 @@ choices_list_size = father.choices_list_size;
 for(choice_numero = 0; choice_numero &lt; choices_list_size; choice_numero++){
     choice = ds_map_create();
     choice = ds_list_find_value(choices_list, choice_numero);
+    jump_to_index = ds_map_find_value(choice,"jump_to_index");
     choice_case_validated = true;
     
     //check choice case to see if case will be shown depending on certain variable conditions
@@ -87,26 +88,15 @@ for(choice_numero = 0; choice_numero &lt; choices_list_size; choice_numero++){
         with (instance_create(father.x, father.text_box.bbox_bottom + (choice_position+1)*80, obj_choice_json)){
             choice_text = other.choice_text;
             choice_index = other.choice_index;
-            show_message_custom_debug("choice_index: " + string(choice_index));
+            jump_to_index = other.jump_to_index;
+            //show_message_custom_debug("choice_index: " + string(choice_index));
             father = other.father;
-            //father_x = 200;
-            //father_y = 200;
         }
         choice_position++;
     }else{
-        alarm[0] = 1;
+        //alarm[0] = 1;
     }
 }
-
-/*choice_numero++;
-if (choice_numero &gt;= choices_list_size){
-    //father.choices_generated = true;
-    //obj_story_assisstant.alarm[1] = 0.3;
-    instance_destroy();
-    //show_message_custom_debug("svi choice dugmad napravljeni");
-}else{
-    alarm[0] = 1;
-}*/
 
 
 
