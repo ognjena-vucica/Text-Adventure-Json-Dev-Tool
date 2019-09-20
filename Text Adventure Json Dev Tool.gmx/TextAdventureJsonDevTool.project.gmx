@@ -264,6 +264,8 @@
       <object>objects\Story_CTRL_JSON</object>
       <object>objects\obj_json_story_element</object>
       <object>objects\obj_cinematic_text_box</object>
+      <object>objects\obj_json_choice_generator</object>
+      <object>objects\obj_choice_json</object>
     </objects>
   </objects>
   <rooms name="rooms">

@@ -25,8 +25,7 @@
         <arguments>
           <argument>
             <kind>1</kind>
-            <string>///initialize
-alarm[0] = 1;
+            <string>alarm[0] = 1;
 
 </string>
           </argument>
@@ -50,41 +49,66 @@ alarm[0] = 1;
         <arguments>
           <argument>
             <kind>1</kind>
-            <string>//element's segments (icon, name, textbox)
-with(instance_create(x,y,obj_cinematic_text_box)){
-    father = other;
-    other.text_box = id;
-}
-instance_create(text_box.x,text_box.y-16,obj_story_gui_icon_frame);
-icon_frame = instance_create(text_box.x,text_box.y-16,obj_story_gui_icon);
-instance_create(icon_frame.bbox_right+10,text_box.y+10,obj_story_gui_name);
+            <string>///generate a choice
+//PRE SVEGA NAPOMENA ZA EDIT JSON prica
+//kljuc id je samo komentar, nema nikakvu sistemsku vaznost!
+//sistem trazi po redosledu, i to je za njega INDEX
+//id je samo komentar za laksu orijentaciju!
 
-//sadrzaj za pojedine segmente
-dialog_element = ds_list_find_value(Story_CTRL_JSON.dialog_data, redni_broj);
-current_text_string_raw = ds_map_find_value(dialog_element, "text");
-current_text_string = process_the_text_string(current_text_string_raw);
-current_text_string_length = string_length(current_text_string);
+choice_numero = 0;
+choice_position = 0;
+choices_list = ds_list_create();
+choices_list = father.choices_list;
+choices_list_size = father.choices_list_size;
 
-obj_story_gui_name.name_text = ds_map_find_value(dialog_element, "name");;
-
-if(ds_map_exists(dialog_element, "icon")){
-    current_icon_string = ds_map_find_value(dialog_element, "icon");
-    with (obj_story_gui_icon) {set_sprite_by_sprite_string(other.current_icon_string);}
-}else{
-    obj_story_gui_icon.sprite_index = spr_story_icon_default;
-}
-
-//choices
-choices_list = ds_map_find_value(dialog_element, "choices");
-choices_list_size = ds_list_size(choices_list);
-//show_message_custom_debug("stry_assistant: choices list size:" + string(choices_list_size));
-
-if(choices_list_size &gt; 0){
-    with(instance_create(x,y,obj_json_choice_generator)){
-        father = other;
-        //show_message(father);
+for(choice_numero = 0; choice_numero &lt; choices_list_size; choice_numero++){
+    choice = ds_map_create();
+    choice = ds_list_find_value(choices_list, choice_numero);
+    choice_case_validated = true;
+    
+    //check choice case to see if case will be shown depending on certain variable conditions
+    if (ds_map_exists(choice,"case")){
+        choice_case_exists = true;
+    }else{
+        choice_case_exists = false;
+    }
+    
+    if (choice_case_exists){
+        choice_case = ds_map_find_value(choice, "case");
+        choice_case_validated = case_validator(choice_case);
+    }
+    
+    //show choice text if case validated or case doesn't exist (==validated still)
+    if (choice_case_validated){
+        choice_text_bulk = ds_map_find_value(choice, "text");
+        choice_text = ds_map_find_value(choice_text_bulk, Game_CTRL.language);
+        choice_index = choice_numero;
+       
+        with (instance_create(father.x, father.text_box.bbox_bottom + (choice_position+1)*80, obj_choice_json)){
+            choice_text = other.choice_text;
+            choice_index = other.choice_index;
+            show_message_custom_debug("choice_index: " + string(choice_index));
+            father = other.father;
+            //father_x = 200;
+            //father_y = 200;
+        }
+        choice_position++;
+    }else{
+        alarm[0] = 1;
     }
 }
+
+/*choice_numero++;
+if (choice_numero &gt;= choices_list_size){
+    //father.choices_generated = true;
+    //obj_story_assisstant.alarm[1] = 0.3;
+    instance_destroy();
+    //show_message_custom_debug("svi choice dugmad napravljeni");
+}else{
+    alarm[0] = 1;
+}*/
+
+
 
 
 </string>

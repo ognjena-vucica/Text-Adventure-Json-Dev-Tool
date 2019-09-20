@@ -29,12 +29,12 @@
 dialog_data = Game_CTRL.story_dialog_data;
 number_of_story_elements = ds_list_size(dialog_data);
 for (var i = 0; i&lt;number_of_story_elements; i++){
-    with(instance_create(room_width / 2, 100 + i*500, obj_json_story_element)){
+    with(instance_create(room_width / 2, 100 + i*730, obj_json_story_element)){
         redni_broj = i;
     }
 }
 
-room_height = 600 + number_of_story_elements*500;
+room_height = 600 + number_of_story_elements*730;
 </string>
           </argument>
         </arguments>
